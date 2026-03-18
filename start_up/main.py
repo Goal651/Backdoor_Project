@@ -18,7 +18,7 @@ def add_to_user_startup():
         script_path = os.path.abspath(__file__)
         command = f'"{python_exe}" "{script_path}"'
         
-        winreg.SetValueEx(key, "MyApp", 0, winreg.REG_SZ, command)
+        winreg.SetValueEx(key, "MyApp Wow", 0, winreg.REG_SZ, command)
         winreg.CloseKey(key)
         
         print("✓ Successfully added to startup (your account only)")

